@@ -1,0 +1,58 @@
+{
+  "name": "@tapokjs/core",
+  "version": "1.0.0",
+  "description": "Isomorphic protocol core for Tapok Base and Connect SDKs",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tapokjs/core.git"
+  },
+  "homepage": "https://tapok.orria.space/docs/core",
+  "bugs": "https://github.com/tapokjs/core/issues",
+  "keywords": [
+    "tapok",
+    "authentication",
+    "oauth",
+    "oidc",
+    "pkce"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "type": "module",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md",
+    "RELEASING.md"
+  ],
+  "sideEffects": false,
+  "scripts": {
+    "build": "tsdown src/index.ts --format esm --platform neutral --target es2023 --dts --clean",
+    "typecheck": "bun check --no-script --project tsconfig.json && bun check --no-script --project test/tsconfig.json",
+    "test": "bun test",
+    "test:runtimes": "bun run build && bun ./test/runtime-contract.mjs && node ./test/runtime-contract.mjs && deno run ./test/runtime-contract.mjs",
+    "check": "bun run typecheck && bun test && bun run test:runtimes",
+    "prepack": "bun run build"
+  },
+  "devDependencies": {
+    "@types/bun": "1.4.1",
+    "tsdown": "0.23.0",
+    "typescript": "7.0.2"
+  },
+  "engines": {
+    "bun": ">=1.4.0",
+    "node": ">=22.0.0"
+  },
+  "packageManager": "bun@1.4.4-canary.20261109.1"
+}
